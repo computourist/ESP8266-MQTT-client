@@ -30,7 +30,3 @@ Connection to the MQTT broker is over Wifi.
 	99	wakeup:			tx only: first message sent on node startup
 
 
-A debug mode is included which outputs messages on the serial output
-
-RFM69 Library by Felix Rusu - felix@lowpowerlab.com
-Get the RFM69 library at: https://github.com/LowPowerLab/
