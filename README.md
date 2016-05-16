@@ -12,6 +12,7 @@ Hardware used is a ESP8266 WiFi module that connects directly to the MQTT broker
 
 Message structure is equal to the RFM69-based gateway/node sytem by the same author.
 This means both type of gateway/nodes can be used in a single Openhab system.
+For a decription of the message format look for the explanation pdf in the RFM69 gateway section.
 
 The MQTT topic is /home/esp_gw/direction/nodeid/devid
 	where direction is "sb" towards the node and "nb" towards the MQTT broker.
