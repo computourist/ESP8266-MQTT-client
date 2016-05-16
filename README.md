@@ -17,22 +17,22 @@ The MQTT topic is /home/esp_gw/direction/nodeid/devid
 	where direction is "sb" towards the node and "nb" towards the MQTT broker.
 
 Defined devices are:
-	0	uptime:		read uptime in minutes
-	1	interval:	read/set transmission interval for push messages
-	3	version:	read software version
-	5	ACK:		read/set acknowledge message after a 'set' request
-	6	toggle:		read/set select toggle / timer function
-	7	timer:		read/set timer interval in seconds
-	16	actuator:	read/set LED or relay output
-	40	button:		tx only: message sent when button pressed
-	92	error:		tx only: device not supported
-	91	error:		tx only: syntax error
-	99	wakeup:		tx only: first message sent on node startup
+- 0	uptime:		read uptime in minutes
+- 1	interval:	read/set transmission interval for push messages
+- 3	version:	read software version
+- 5	ACK:		read/set acknowledge message after a 'set' request
+- 6	toggle:		read/set select toggle / timer function
+- 7	timer:		read/set timer interval in seconds
+- 16	actuator:	read/set LED or relay output
+- 40	button:		tx only: message sent when button pressed
+- 92	error:		tx only: device not supported
+- 91	error:		tx only: syntax error
+- 99	wakeup:		tx only: first message sent on node startup
 
 Hardware connections:
 
-pin 0 is connected to a button that switches to GND, pullup to VCC
-pin 2 is connected to LED and current limiting resistor to GND
+- pin 0 is connected to a button that switches to GND, pullup to VCC
+- pin 2 is connected to LED and current limiting resistor to GND
 
 Version 1.0 by computourist@gmail.com May 2016
 
