@@ -12,9 +12,12 @@ It's only function is to control a digital output (Relay, LED), it has:
 
 The push button can be used to locally toggle the output. On every state change a message can be generated.
 
-Connection to the MQTT broker is over Wifi. 
+Connection to the MQTT broker is over Wifi. Topics used are:
+home/esp_gw/nb/nodexx/devyy for messages from node to broker
+home/esp_gw/sb/nodexx/devyy for messages from broker to node.
 
- Defined devices are:
+nodexx is the node ID, fixed and unique for every node.
+devyy is a device on a node; devices for this node are:
 
 0	uptime:			read uptime node in minutes
 1	node:			read/set transmission interval in seconds, 0 means no periodic transmission
