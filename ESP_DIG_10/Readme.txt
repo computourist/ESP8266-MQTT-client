@@ -16,17 +16,16 @@ Connection to the MQTT broker is over Wifi.
 
  Defined devices are:
 
-	0	uptime:			read uptime node in minutes
-	1	node:			read/set transmission interval in seconds, 0 means no periodic transmission
-	3	Version:		read version node software
-	5	ACK:			read/set acknowledge message after a 'set' request
-	6	toggle:			read/set toggle function on button press
-	7	timer:			read/set activation timer after button press in seconds, 0 means no timer
-	16	actuator:		read/set LED or relay output
+0	uptime:			read uptime node in minutes
+1	node:			read/set transmission interval in seconds, 0 means no periodic transmission
+3	Version:		read version node software
+5	ACK:			read/set acknowledge message after a 'set' request
+6	toggle:			read/set toggle function on button press
+7	timer:			read/set activation timer after button press in seconds, 0 means no timer
+16	actuator:		read/set LED or relay output
 
-
-	91	error:			tx only: syntax error message 
-	92	error:			tx only: device not supported
-	99	wakeup:			tx only: first message sent on node startup
+91	error:			tx only: syntax error message 
+92	error:			tx only: device not supported
+99	wakeup:			tx only: first message sent on node startup
 
 
