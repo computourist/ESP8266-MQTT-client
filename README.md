@@ -30,8 +30,9 @@ Defined devices are:
 	99	wakeup:		tx only: first message sent on node startup
 
 Hardware connections:
-	-	pin 0 is connected to a button that switches to GND, pullup to VCC
-	-	pin 2 is connected to LED and current limiting resistor to GND
+
+pin 0 is connected to a button that switches to GND, pullup to VCC
+pin 2 is connected to LED and current limiting resistor to GND
 
 Version 1.0 by computourist@gmail.com May 2016
 
