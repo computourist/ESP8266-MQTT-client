@@ -392,6 +392,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 			// remove comment to include parameter in transmission
  
 //			send0 = true;
+			send2 = true;										// send RSSI
 			send3 = true;										// send version
 			send16 = true;										// output state
 			}
