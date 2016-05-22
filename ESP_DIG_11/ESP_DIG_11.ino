@@ -19,6 +19,7 @@
 //	0	uptime:		read uptime in minutes
 //	1	interval:	read/set transmission interval for push messages
 //	3	version:	read software version
+//  2 RSSI:     read radio signal strength
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
@@ -67,6 +68,7 @@
 	long	lastMinute = -1;						// timestamp last minute
 	long	upTime = 0;								// uptime in minutes
 	int		ACT1State;								// status ACT1 output
+  int   signalStrength;         // radio signal strength
 	bool	wakeUp = true;							// wakeup indicator
 	bool	setAck = false; 						// acknowledge receipt of actions
 	bool	curState = true;						// current button state 
@@ -74,7 +76,7 @@
 	bool	timerOnButton = false;					// timer output on button press
 	bool	msgBlock = false;						// flag to hold button message
 	bool	readAction;								// indicates read / set a value
-	bool	send0, send1, send3, send5, send6, send7;
+	bool	send0, send1, send2, send3, send5, send6, send7;
 	bool	send16, send40, send99;					// message triggers
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
@@ -126,6 +128,12 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 				if (TXinterval <10 && TXinterval !=0) TXinterval = 10;	// minimum interval is 10 seconds
 			}
 		}
+    if (DID ==2) {                // RSSI
+      if (readAction) {
+        send2 = true;
+        error = 0;
+       } else error = 3;           // invalid payload; do not process
+    }
 		if (DID==3) {								// version
 			if (readAction) {
 				send3 = true;
@@ -233,6 +241,14 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		send1 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
+
+  if (send2) {                  // send transmission interval
+    sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev02", nodeId);
+    signalStrength = WiFi.RSSI();
+    sprintf(buff_msg, "%d", signalStrength);
+    send2 = false;
+    pubMQTT(buff_topic, buff_msg);
+    }
 
 	if (send3) {									// send software version
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev03", nodeId);
