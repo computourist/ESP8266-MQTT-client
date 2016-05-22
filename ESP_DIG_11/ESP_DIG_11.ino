@@ -22,7 +22,7 @@
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
-//  10  IP:      read ip address of the ESP
+//	10  IP:      read ip address of the ESP
 //	16	actuator:	read/set LED or relay output
 //	40	button		tx only: button pressed
 //	92	error:		tx only: device not supported
@@ -69,7 +69,7 @@
 	long	lastMinute = -1;						// timestamp last minute
 	long	upTime = 0;								// uptime in minutes
 	int		ACT1State;								// status ACT1 output
-  String  IP;
+	String  IP;
 	bool	wakeUp = true;							// wakeup indicator
 	bool	setAck = false; 						// acknowledge receipt of actions
 	bool	curState = true;						// current button state 
@@ -278,7 +278,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 
 	if (send10) {                 // send IP address
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev10", nodeId);
-    IP = WiFi.localIP().toString();
+		IP = WiFi.localIP().toString();
 		for (i=0; i<sizeof(IP); i++) {
 			buff_msg[i] = IP[i];}
 		buff_msg[i] = '\0';
