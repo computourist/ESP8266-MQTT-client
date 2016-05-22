@@ -38,7 +38,7 @@
 //
 	#include <ESP8266WiFi.h>
 	#include <PubSubClient.h>
- #include <IPAddress.h>
+	#include <IPAddress.h>
 	#define VERSION "WDIG V1.1"						// this value can be queried as device 3
 	#define wifi_ssid "xxxx"						// wifi station name
 	#define wifi_password "xxxxxxxx"				// wifi password
@@ -79,7 +79,7 @@
 	bool	send16, send40, send99;					// message triggers
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
-  String IP;
+	String IP;
 
 void mqttSubs(char* topic, byte* payload, unsigned int length);
 
@@ -174,12 +174,12 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 			}
 		}
 
-		if (DID ==10) {                // uptime 
-      if (readAction) {
-        send0 = true;
-        error = 0;
-      } else error = 3;           // invalid payload; do not process
-    }
+		if (DID ==10) {                // IP address 
+			if (readAction) {
+				send0 = true;
+				error = 0;
+			} else error = 3;           // invalid payload; do not process
+		}
     
 		if (DID==16) {								// state of actuator
 			if (readAction) {
@@ -275,14 +275,14 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		send7 = false;
 	}
 
- if (send10) {                 // send software version
-    sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev10", nodeId);
-    for (i=0; i<sizeof(IP); i++) {
-      buff_msg[i] = IP[i];}
-    buff_msg[i] = '\0';
-    send10 = false;
-    pubMQTT(buff_topic, buff_msg);
-    }
+	if (send10) {                 // send IP address
+		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev10", nodeId);
+		for (i=0; i<sizeof(IP); i++) {
+			buff_msg[i] = IP[i];}
+		buff_msg[i] = '\0';
+		send10 = false;
+		pubMQTT(buff_topic, buff_msg);
+	}
 		
 	if (send16) {									// send actuator state
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev16", nodeId);
@@ -313,7 +313,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	send3 = false;
 	send5 = false;
 	send7 = false;
-  send10 = false;
+	send10 = false;
 	send16 = false;
 	send40 = false;
 		digitalWrite(ACT1,ACT1State);
@@ -330,8 +330,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		Serial.println("WiFi connected");
 		Serial.println("IP address: ");
 		Serial.println(WiFi.localIP());
-   IP = WiFi.localIP().toString();
-   Serial.println(IP);
+		IP = WiFi.localIP().toString();
 		}
 
 	//	LOOP
@@ -398,7 +397,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
  
 //			send0 = true;
 			send3 = true;										// send version
-      send10 = true;
+			send10 = true;
 			send16 = true;										// output state
 			}
 		}
