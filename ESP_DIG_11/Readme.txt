@@ -8,6 +8,7 @@ by Computourist@gmail.com May 2016
 	- mqttsubs code improved
 	- device 40 implemented
 	- in timer function a message is now generated on state change
+	- if Ack is true, a button message is generated at each button press.
 
 
 

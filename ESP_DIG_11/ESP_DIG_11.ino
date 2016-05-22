@@ -274,7 +274,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		send16 = false;
 	}
 	
-		if (send40) {									// send button pressed message
+	if (send40) {									// send button pressed message
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev40", nodeId);
 		if (ACT1State ==0) sprintf(buff_msg, "OFF");
 		if (ACT1State ==1) sprintf(buff_msg, "ON");
