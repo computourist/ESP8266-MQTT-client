@@ -22,6 +22,7 @@
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
+//	10  IP:      read ip address of the ESP
 //	16	actuator:	read/set LED or relay output
 //	40	button		tx only: button pressed
 //	92	error:		tx only: device not supported
@@ -38,6 +39,7 @@
 //
 	#include <ESP8266WiFi.h>
 	#include <PubSubClient.h>
+	#include <IPAddress.h>
 	#define VERSION "WDIG V1.1"						// this value can be queried as device 3
 	#define wifi_ssid "xxxx"						// wifi station name
 	#define wifi_password "xxxxxxxx"				// wifi password
@@ -67,6 +69,7 @@
 	long	lastMinute = -1;						// timestamp last minute
 	long	upTime = 0;								// uptime in minutes
 	int		ACT1State;								// status ACT1 output
+	String  IP;
 	bool	wakeUp = true;							// wakeup indicator
 	bool	setAck = false; 						// acknowledge receipt of actions
 	bool	curState = true;						// current button state 
@@ -74,7 +77,7 @@
 	bool	timerOnButton = false;					// timer output on button press
 	bool	msgBlock = false;						// flag to hold button message
 	bool	readAction;								// indicates read / set a value
-	bool	send0, send1, send3, send5, send6, send7;
+	bool	send0, send1, send3, send5, send6, send7, send10;
 	bool	send16, send40, send99;					// message triggers
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
@@ -171,7 +174,14 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 				if (TIMinterval <5 && TIMinterval !=0) TIMinterval = 5;	// minimum interval is 5 seconds
 			}
 		}
-		
+
+		if (DID ==10) {                // IP address 
+			if (readAction) {
+				send0 = true;
+				error = 0;
+			} else error = 3;           // invalid payload; do not process
+		}
+    
 		if (DID==16) {								// state of actuator
 			if (readAction) {
 				send16 = true;
@@ -265,6 +275,16 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		pubMQTT(buff_topic, buff_msg);
 		send7 = false;
 	}
+
+	if (send10) {                 // send IP address
+		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev10", nodeId);
+		IP = WiFi.localIP().toString();
+		for (i=0; i<sizeof(IP); i++) {
+			buff_msg[i] = IP[i];}
+		buff_msg[i] = '\0';
+		send10 = false;
+		pubMQTT(buff_topic, buff_msg);
+	}
 		
 	if (send16) {									// send actuator state
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev16", nodeId);
@@ -295,6 +315,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	send3 = false;
 	send5 = false;
 	send7 = false;
+	send10 = false;
 	send16 = false;
 	send40 = false;
 		digitalWrite(ACT1,ACT1State);
@@ -377,6 +398,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
  
 //			send0 = true;
 			send3 = true;										// send version
+			send10 = true;
 			send16 = true;										// output state
 			}
 		}
