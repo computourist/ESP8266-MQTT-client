@@ -177,7 +177,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 
 		if (DID ==10) {                // IP address 
 			if (readAction) {
-				send0 = true;
+				send10 = true;
 				error = 0;
 			} else error = 3;           // invalid payload; do not process
 		}
@@ -229,6 +229,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		sprintf(buff_msg, "NODE %d WAKEUP", nodeId);
 		send99 = false;
 		pubMQTT(buff_topic, buff_msg);
+		send10 = true;								// send IP address
 		}
 	if (send0) {									// send uptime
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev00", nodeId);
