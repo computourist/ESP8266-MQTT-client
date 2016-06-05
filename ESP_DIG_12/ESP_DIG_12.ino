@@ -23,9 +23,9 @@
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
+//	10	IP:			Read IP address
 //	16	actuator:	read/set LED or relay output
 //	40	button		tx only: button pressed
-//	72	IP:			Read IP address
 //	92	error:		tx only: device not supported
 //	91	error:		tx only: syntax error
 //	99	wakeup:		tx only: first message sent on node startup
@@ -80,7 +80,7 @@
 	bool	msgBlock = false;						// flag to hold button message
 	bool	readAction;								// indicates read / set a value
 	bool	send0, send1, send2, send3, send5, send6, send7;
-	bool	send72, send16, send40, send99;			// message triggers
+	bool	send10, send16, send40, send99;			// message triggers
 	String	IP;										// IPaddress of ESP
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
@@ -183,9 +183,9 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 				if (TIMinterval <5 && TIMinterval !=0) TIMinterval = 5;	// minimum interval is 5 seconds
 			}
 		}
-		if (DID ==72) {								// IP address 
+		if (DID ==10) {								// IP address 
 			if (readAction) {
-				send72 = true;
+				send10 = true;
 				error = 0;
 			} else error = 3;						// invalid payload; do not process
 		}
@@ -290,13 +290,13 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		pubMQTT(buff_topic, buff_msg);
 		send7 = false;
 	}
-	if (send72) {								// send IP address
-		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev72", nodeId);
+	if (send10) {								// send IP address
+		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev10", nodeId);
 		for (i=0; i<16; i++) {
 			buff_msg[i] = IP[i];}
 		buff_msg[i] = '\0';
 		pubMQTT(buff_topic, buff_msg);
-		send72 = false;
+		send10 = false;
 	}
 	if (send16) {									// send actuator state
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev16", nodeId);
@@ -327,7 +327,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	send3 = false;
 	send5 = false;
 	send7 = false;
-	send72 = true;									// send IP on startup
+	send10 = true;									// send IP on startup
 	send16 = false;
 	send40 = false;
 		digitalWrite(ACT1,ACT1State);
@@ -343,7 +343,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		Serial.println("");
 		Serial.println("WiFi connected");
 		Serial.println("IP address: ");
-   IP = WiFi.localIP().toString();
+		IP = WiFi.localIP().toString();
 		Serial.println(IP);
 		}
 
@@ -409,7 +409,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 			// list of sensordata to be sent periodically..
 			// remove comment to include parameter in transmission
  
-//			send72 = true;										// send IP address
+//			send10 = true;										// send IP address
 			send2 = true;										// send RSSI
 //			send3 = true;										// send version
 			send16 = true;										// output state
