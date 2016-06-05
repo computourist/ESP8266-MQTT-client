@@ -20,6 +20,7 @@ The MQTT topic is /home/esp_gw/direction/nodeid/devid
 Defined devices are:
 - 0	uptime:		read uptime in minutes
 - 1	interval:	read/set transmission interval for push messages
+- 2	RSSI:		read signal strength
 - 3	version:	read software version
 - 5	ACK:		read/set acknowledge message after a 'set' request
 - 6	toggle:		read/set select toggle / timer function
