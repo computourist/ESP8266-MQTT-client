@@ -24,6 +24,7 @@ Defined devices are:
 - 5	ACK:		read/set acknowledge message after a 'set' request
 - 6	toggle:		read/set select toggle / timer function
 - 7	timer:		read/set timer interval in seconds
+- 10	IP:		read IP address of node
 - 16	actuator:	read/set LED or relay output
 - 40	button:		tx only: message sent when button pressed
 - 92	error:		tx only: device not supported
