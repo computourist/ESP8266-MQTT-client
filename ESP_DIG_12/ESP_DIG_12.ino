@@ -20,7 +20,7 @@
 //	1	interval:	read/set transmission interval for push messages
 //	2	RSSI		read radio signal strength
 //	3	version:	read software version
-//	4	voltage:	read battery level
+//	4	voltage:	read input voltage - IMPORTANT! If you are going to use ADC port, you have to remove this feature
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
@@ -86,7 +86,7 @@
 	String	IP;										// IPaddress of ESP
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
-	ADC_MODE(ADC_VCC);
+	ADC_MODE(ADC_VCC);							// remove this before using the ADC port
 
 void mqttSubs(char* topic, byte* payload, unsigned int length);
 
