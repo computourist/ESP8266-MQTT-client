@@ -22,6 +22,7 @@ Defined devices are:
 - 1	interval:	read/set transmission interval for push messages
 - 2	RSSI:		read signal strength
 - 3	version:	read software version
+- 3	version:	read input voltage
 - 5	ACK:		read/set acknowledge message after a 'set' request
 - 6	toggle:		read/set select toggle / timer function
 - 7	timer:		read/set timer interval in seconds
