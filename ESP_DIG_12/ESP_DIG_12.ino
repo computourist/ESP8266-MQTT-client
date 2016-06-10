@@ -48,7 +48,7 @@
 	#define wifi_password "xxxxxxxx"				// wifi password
 	#define mqtt_server "192.168.xxx.xxx"			// mqtt server IP
 	#define nodeId 80								// node ID
-  #define VCC
+	#define VCC									//Comment out if you are going to connect the ADC port to anything.
 
 	//	sensor setting
 
@@ -83,16 +83,16 @@
 	bool	msgBlock = false;						// flag to hold button message
 	bool	readAction;								// indicates read / set a value
 	bool	send0, send1, send2, send3, send5, send6, send7;
-  #ifdef VCC
-  bool  send4;
-  #endif
+	#ifdef VCC
+	bool  send4;
+	#endif
 	bool	send10, send16, send40, send99;			// message triggers
 	String	IP;										// IPaddress of ESP
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
 	#ifdef VCC
 	ADC_MODE(ADC_VCC);
-  #endif
+	#endif
 
 void mqttSubs(char* topic, byte* payload, unsigned int length);
 
@@ -285,7 +285,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		pubMQTT(buff_topic, buff_msg);
 		}
   
-  #ifdef VCC
+	#ifdef VCC
 	if (send4) {									// send software version
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev04", nodeId);
 		Vcc = ESP.getVcc();
@@ -293,7 +293,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		send4 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
-  #endif
+	#endif
   
 	if (send5) {									// send ACK state
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev05", nodeId);
@@ -352,9 +352,9 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	send0 = false;
 	send1 = false;
 	send3 = false;
-  #ifdef VCC
+	#ifdef VCC
 	send4 = false;
-  #endif
+	#endif
 	send5 = false;
 	send7 = false;
 	send10 = true;									// send IP on startup
@@ -444,7 +444,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 //			send3 = true;										// send version
 			#ifdef VCC
 			send4 = true;										// send input voltage
-      #endif
+			#endif
 //			send10 = true;									// send IP
 			send16 = true;									// output state
 			}
