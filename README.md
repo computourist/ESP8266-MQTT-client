@@ -22,7 +22,7 @@ Defined devices are:
 - 1	interval:	read/set transmission interval for push messages
 - 2	RSSI:		read signal strength
 - 3	version:	read software version
-- 4	voltage:	read input voltage. IMPORTANT! If you are going to use the ADC input, you have to remove this feature.
+- 4	voltage:	read input voltage. IMPORTANT! Comment out #define VCC if you are going to connect the ADC port to anything.
 - 5	ACK:		read/set acknowledge message after a 'set' request
 - 6	toggle:		read/set select toggle / timer function
 - 7	timer:		read/set timer interval in seconds

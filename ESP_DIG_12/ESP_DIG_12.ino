@@ -20,7 +20,7 @@
 //	1	interval:	read/set transmission interval for push messages
 //	2	RSSI		read radio signal strength
 //	3	version:	read software version
-//	4	voltage:	read input voltage - IMPORTANT! If you are going to use ADC port, you have to remove this feature
+//	4	voltage:	read input voltage - IMPORTANT! Comment out #define VCC if you are going to connect the ADC port to anything.
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
@@ -48,6 +48,7 @@
 	#define wifi_password "xxxxxxxx"				// wifi password
 	#define mqtt_server "192.168.xxx.xxx"			// mqtt server IP
 	#define nodeId 80								// node ID
+  #define VCC
 
 	//	sensor setting
 
@@ -81,12 +82,17 @@
 	bool	timerOnButton = false;					// timer output on button press
 	bool	msgBlock = false;						// flag to hold button message
 	bool	readAction;								// indicates read / set a value
-	bool	send0, send1, send2, send3, send4, send5, send6, send7;
+	bool	send0, send1, send2, send3, send5, send6, send7;
+  #ifdef VCC
+  bool  send4;
+  #endif
 	bool	send10, send16, send40, send99;			// message triggers
 	String	IP;										// IPaddress of ESP
 	char	buff_topic[30];							// mqtt topic
 	char	buff_msg[32];							// mqtt message
-	ADC_MODE(ADC_VCC);							// remove this before using the ADC port
+	#ifdef VCC
+	ADC_MODE(ADC_VCC);
+  #endif
 
 void mqttSubs(char* topic, byte* payload, unsigned int length);
 
@@ -147,12 +153,14 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 				error = 0;
 			} else error = 3;						// invalid payload; do not process
 		}
-		if (DID==4) 								// voltage
+		#ifdef VCC
+		if (DID==4) {								// voltage
 			if (readAction) {
 				send4 = true;
 				error = 0;
-			} else error = 3						// invalid payload; do not process
+			} else error = 3;						// invalid payload; do not process
 		}
+		#endif
 		if (DID==5) {								// ACK
 			if (readAction) {
 				send5 = true;
@@ -276,15 +284,17 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 		send3 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
-   
-	if (send4) 									// send software version
+  
+  #ifdef VCC
+	if (send4) {									// send software version
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev04", nodeId);
 		Vcc = ESP.getVcc();
 		sprintf(buff_msg, "%d.%d", Vcc/1000, Vcc-((Vcc/1000)*1000));
 		send4 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
-    
+  #endif
+  
 	if (send5) {									// send ACK state
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev05", nodeId);
 		if (!setAck) sprintf(buff_msg, "OFF");
@@ -342,7 +352,9 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	send0 = false;
 	send1 = false;
 	send3 = false;
+  #ifdef VCC
 	send4 = false;
+  #endif
 	send5 = false;
 	send7 = false;
 	send10 = true;									// send IP on startup
@@ -430,8 +442,10 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 			send0 = true;										// send uptime
 			send2 = true;										// send RSSI
 //			send3 = true;										// send version
-			send4 = true										// send input voltage
-/			send10 = true									// send IP
+			#ifdef VCC
+			send4 = true;										// send input voltage
+      #endif
+//			send10 = true;									// send IP
 			send16 = true;									// output state
 			}
 		}
