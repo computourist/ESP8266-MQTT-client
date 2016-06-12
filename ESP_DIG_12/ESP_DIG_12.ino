@@ -20,7 +20,7 @@
 //	1	interval:	read/set transmission interval for push messages
 //	2	RSSI		read radio signal strength
 //	3	version:	read software version
-//	4	voltage:	read input voltage - IMPORTANT! Comment out #define VCC if you are going to connect the ADC port to anything.
+//	4	voltage:	read input voltage - IMPORTANT! Comment out or remove #define VCC if you are going to connect the ADC port to anything.
 //	5	ACK:		read/set acknowledge message after a 'set' request
 //	6	toggle:		read/set select toggle / timer function
 //	7	timer:		read/set timer interval in seconds
@@ -48,7 +48,7 @@
 	#define wifi_password "xxxxxxxx"				// wifi password
 	#define mqtt_server "192.168.xxx.xxx"			// mqtt server IP
 	#define nodeId 80								// node ID
-	#define VCC									//Comment out if you are going to connect the ADC port to anything.
+	#define VCC									// Comment out or remove if you are going to connect the ADC port to anything.
 
 	//	sensor setting
 
@@ -289,7 +289,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	if (send4) {									// send software version
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev04", nodeId);
 		Vcc = ESP.getVcc();
-		sprintf(buff_msg, "%d.%d", Vcc/1000, Vcc-((Vcc/1000)*1000));
+		dtostrf(Vcc/1000, 10,2, buff_msg);
 		send4 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
