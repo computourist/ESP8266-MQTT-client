@@ -74,7 +74,6 @@
 	long	upTime = 0;								// uptime in minutes
 	int		ACT1State;								// status ACT1 output
 	int		signalStrength;							// radio signal strength
-	long	Vcc;
 	bool	wakeUp = true;							// wakeup indicator
 	bool	setAck = false; 						// acknowledge receipt of actions
 	bool	curState = true;						// current button state 
@@ -288,8 +287,7 @@ void mqttSubs(char* topic, byte* payload, unsigned int length) {	// receive and 
 	#ifdef VCC
 	if (send4) {									// send software version
 		sprintf(buff_topic, "home/esp_gw/nb/node%02d/dev04", nodeId);
-		Vcc = ESP.getVcc();
-		dtostrf(Vcc/1000, 10,2, buff_msg);
+		dtostrf(ESP.getVcc()/1000.00, 4, 2, buff_msg);
 		send4 = false;
 		pubMQTT(buff_topic, buff_msg);
 		}
