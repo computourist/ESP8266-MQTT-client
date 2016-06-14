@@ -21,10 +21,10 @@
 //	2	RSSI		read radio signal strength
 //	3	version:	read software version
 //	4	voltage:	read input voltage - IMPORTANT! Comment out or remove #define VCC if you are going to connect the ADC port to anything.
-//	5	ACK:		read/set acknowledge message after a 'set' request
-//	6	toggle:		read/set select toggle / timer function
-//	7	timer:		read/set timer interval in seconds
-//	10	IP:			Read IP address
+//  5 ACK:    read/set acknowledge message after a 'set' request
+//  6 toggle:   read/set select toggle / timer function
+//  7 timer:    read/set timer interval in seconds
+//  10  IP:     Read IP address
 //	16	actuator:	read/set LED or relay output
 //	40	button		tx only: button pressed
 //	92	error:		tx only: device not supported
