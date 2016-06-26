@@ -1,6 +1,6 @@
 //	ESP_SONOFF_V1.0
 //
-//	This MQTT client will is designed to run on a SONOFF device.
+//	This MQTT client is designed to run on a SONOFF device.
 //	https://www.itead.cc/smart-home/sonoff-wifi-wireless-switch.html
 //
 //	It will connect over Wifi to the MQTT broker and controls a digital output (LED, relay):
