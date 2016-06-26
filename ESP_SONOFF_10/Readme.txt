@@ -7,7 +7,7 @@ ESP-SONOFF Release 1.0
 
 by Computourist@gmail.com June 2016
 
-The SONOFF end node is a small an cheap power switch node, based on a ESP8266 Wifi Module.
+The SONOFF end node is a small and cheap power switch node, based on an ESP8266 Wifi Module.
 
 
 Its  function is to control a relay and switch mains power.
