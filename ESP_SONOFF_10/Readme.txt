@@ -19,7 +19,7 @@ It has:
 
 A dual color LED is included in the unit, where the red LED is not used. The unit can be modified to have the red LED light up when the load is switched on.
 
-The green LED will shiow the following sequence:
+The green LED will show the following sequence:
 
 - it wil light up for a second when the WIFI connection is established.
 - it will go out for one second
