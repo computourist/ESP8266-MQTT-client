@@ -1,4 +1,10 @@
 # ESP8266-MQTT-client
+-------------------------------------------------------------------------------------------------
+June 2016. SONOFF client added.
+Client software was adapted to function on a commercial hardware platform: sonoff by Itead.
+This yields a small and cheap unit to switch mains power. More info can be found in the wiki.
+-------------------------------------------------------------------------------------------------
+
 A wifi based MQTT client
 
 This MQTT client will connect over Wifi to the MQTT broker and controls a digital output (LED, relay):
