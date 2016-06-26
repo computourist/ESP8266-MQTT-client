@@ -17,7 +17,8 @@ It has:
 - an output to control the load (set at GPIO 12)
 - an input to connect a pushbutton (at GPIO 0)
 
-A dual color LED is included in the unit, where the red LED is not used. The unit can be modified to have the red LED light up when the load is switched on.
+A dual color LED is included in the unit, where the red LED is not used. 
+The unit can be modified to have the red LED light up when the load is switched on.
 
 The green LED will show the following sequence:
 
