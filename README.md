@@ -1,6 +1,12 @@
 # ESP8266-MQTT-client
 
 -------------------------------------------------------------------------------------------------
+July 2016. SONOFF client new release 1.1 
+
+Client software was adapted to include node number in MQTT clientID.This to prevent issues when using mutiple nodes.
+An MQTT "will" was added to indicate nodes disconnecting.
+
+-------------------------------------------------------------------------------------------------
 June 2016. SONOFF client added.
 
 Client software was adapted to function on a commercial hardware platform: sonoff by Itead.This yields a small and cheap unit to switch mains power. More info can be found in the wiki.
