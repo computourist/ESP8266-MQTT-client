@@ -3,7 +3,7 @@
 -------------------------------------------------------------------------------------------------
 July 2016. SONOFF client new release 1.2 
 
-Auto-recovery for wifi was added.Also fallback to a second Access Point (SSI) was added.
+Auto-recovery for wifi was added. Also fallback to a second Access Point (SSI) was added.
 The node will try connecting to the main SSI for 20 seconds, then try the second SSI and so on.
 If no second SSI is present fill in the same SSI-data for SSI_A and SSI_B.
 
