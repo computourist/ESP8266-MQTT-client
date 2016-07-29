@@ -4,19 +4,19 @@
 July 2016. SONOFF client new release 1.2 
 
 Auto-recovery for wifi was added. Also fallback to a second Access Point (SSI) was added.
-The node will try connecting to the main SSI for 20 seconds, then try the second SSI and so on.
+The node will try to connect to the main SSI for 20 seconds, then try the second SSI and so on.
 If no second SSI is present fill in the same SSI-data for SSI_A and SSI_B.
 
 -------------------------------------------------------------------------------------------------
 July 2016. SONOFF client new release 1.1 
 
-Client software was adapted to include node number in MQTT clientID.This to prevent issues when using mutiple nodes.
+Client software was adapted to include the node number in MQTT clientID. This is to prevent issues when using multiple nodes.
 An MQTT "will" was added to indicate nodes disconnecting.
 
 -------------------------------------------------------------------------------------------------
 June 2016. SONOFF client added.
 
-Client software was adapted to function on a commercial hardware platform: sonoff by Itead.This yields a small and cheap unit to switch mains power. More info can be found in the wiki.
+Client software was adapted to function on a commercial hardware platform: sonoff by Itead. This yields a small and cheap unit to switch mains power. More info can be found in the wiki.
 
 -------------------------------------------------------------------------------------------------
 
