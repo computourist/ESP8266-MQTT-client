@@ -1,4 +1,4 @@
-ESP-SONOFF Release 1.1 
+ESP-SONOFF Release 1.2 
 
 
 by Computourist@gmail.com July 2016
