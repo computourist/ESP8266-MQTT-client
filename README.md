@@ -1,5 +1,14 @@
 # ESP8266-MQTT-client
 
+
+-------------------------------------------------------------------------------------------------
+August 2016 ESP-DIG Release 1.3 
+
+The same code improvement as done for the Sonoff node:
+
+    - auto-reconnect and fall-back to alternate SSI for Wifi
+    - Debug mode can be activated on compilation
+
 -------------------------------------------------------------------------------------------------
 July 2016. SONOFF client new release 1.2 
 
